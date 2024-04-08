@@ -30,16 +30,26 @@ Lembre que toda solução deve esta contida no repositório , sem nenhuma ação
 Estrutura da aplicação
 
 |-- app/
-|   |-- Dockerfile
-|   |-- app.py
-|   |-- requirements.txt
-|   |-- index.html
-|   |-- worker.py
-|   ...
+
+|---|-- Dockerfile
+
+|---|-- app.py
+
+|---|-- requirements.txt
+
+|---|-- index.html
+
+|---|-- worker.py
+
 |-- nginx/
-|   |-- Dockerfile
-|   |-- nginx.conf
+
+|---|-- Dockerfile
+
+|---|-- nginx.conf
+
 |-- docker-compose.yml
+
+
 
 
 
@@ -55,6 +65,7 @@ Descrição do fluxo do projeto (sistema)
 Descrição do fluxo:
 
 [Usuário] --> [NGINX] --> [Aplicação Web]
+
                      |
                      |--> [MinIO] (Armazenamento de Fotos)
                      |
