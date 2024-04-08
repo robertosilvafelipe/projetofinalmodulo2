@@ -72,3 +72,4 @@ Descrição do fluxo:
 5. **RabbitMQ**: Gerencia a fila de mensagens para o processamento de fotos
 6. **Worker**: Processa as fotos de acordo com as mensagens na fila do RabbitMQ.
 7. **Redis**: Armazena metadados das fotos para acesso rápido.
+
