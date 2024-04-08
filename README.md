@@ -39,10 +39,10 @@ Lembre que toda solução deve esta contida no repositório , sem nenhuma ação
 ProjetoFinalMod2/
 |-- app/
 |   |-- Dockerfile
-|   |-- [app.py](http://app.py/)
+|   |-- [app.py]
 |   |-- requirements.txt
 |   |-- index.html
-|   |-- [worker.py](http://worker.py/)
+|   |-- [worker.py]
 |   ...
 |-- nginx/
 |   |-- Dockerfile
@@ -87,3 +87,30 @@ Descrição do fluxo:
 6. **Worker**: Processa as fotos de acordo com as mensagens na fila do RabbitMQ.
 7. **Redis**: Armazena metadados das fotos para acesso rápido.
 
+
+# Execução da aplicação 
+
+Após realização do pull das imagens e build com o docker compose, abrir no navegador a url do ambiente na porta 8080.
+
+![image](https://github.com/robertosilvafelipe/projetofinalmodulo2/assets/101230256/6666b72a-c2c9-4011-bba3-c02e7f2d1560)
+
+Realizar  o upload de uma imagem e clicar no upload.
+
+Deverá ser criado uma fila no rabbimq - (Rabbitmq é aberto na porta 15672)
+A imagem deverá ser gravada no minio - (Minio é aberto na porta 9001)
+E será criado uma key no redis para salvar informações básicas da imagem - (redis é aberto na porta 8001)
+
+
+Minio 
+
+![image](https://github.com/robertosilvafelipe/projetofinalmodulo2/assets/101230256/76f783c2-fc81-4b44-bbae-bac6825674a6)
+
+
+Rabbit MQ 
+
+![image](https://github.com/robertosilvafelipe/projetofinalmodulo2/assets/101230256/d8cffaac-5338-42ed-85c9-10aa16d09364)
+
+
+Redis 
+
+![image](https://github.com/robertosilvafelipe/projetofinalmodulo2/assets/101230256/94f5dcc3-7fd1-42d0-9f83-90f23d3b557e)
