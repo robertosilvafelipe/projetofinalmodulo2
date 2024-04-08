@@ -18,6 +18,7 @@ O docker compose deve conter uma orquestração dos container, onde a aplicaçã
 • Volume para persistir os dados do container do Minio, Redis e Rabbit.
 • Criação de uma network e expor apenas as portas necessárias.
 • Criação de um dockerfile para a aplicação.
+
 Pense que é uma aplicação que deve ter como preocupação uma alta disponibilidade e que seja resiliente.
 
 A entrega pode ser feita através de um repositório como o GitHub. Deve conter:
