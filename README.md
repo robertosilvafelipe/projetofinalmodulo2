@@ -28,6 +28,10 @@ A entrega pode ser feita através de um repositório como o GitHub. Deve conter:
 • Todos os arquivos: Lógica da aplicação, Dockerfile e um docker compose.
 Lembre que toda solução deve esta contida no repositório , sem nenhuma ação previa no host que vai executar a solução .
 
+----
+# Descrição do funcionamento da aplicação 
+
+Aplicação de galeria de fotos onde usuários podem fazer upload de fotos, que são armazenadas no MinIO. Ao fazer o upload, a aplicação coloca uma mensagem em uma fila do RabbitMQ para processamento posterior por workers que consomem da fila. Informações sobre as fotos, como metadados e o caminho para o arquivo armazenado, são guardadas no Redis para acesso rápido. O NGINX atua como um proxy reverso, roteando solicitações para a interface da aplicação e servindo arquivos estáticos.
 
 
 ----
