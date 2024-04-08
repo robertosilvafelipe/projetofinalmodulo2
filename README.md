@@ -6,10 +6,14 @@ O projeto final vai se basear no projeto do modulo anterior, mesmo as pessoas qu
 O projeto se baseia na criação de um docker compose, com os seguintes serviços:
 
 • Aplicação
+
 • Minio
+
 • Redis
+
 • RabbitMQ
-O ocker compose deve conter uma orquestração dos container, onde a aplicação deve ser o ultimo container a subir, garantindo assim que quando subir a aplicação não encontre nenhum error.
+
+O docker compose deve conter uma orquestração dos container, onde a aplicação deve ser o ultimo container a subir, garantindo assim que quando subir a aplicação não encontre nenhum error.
 
 • Volume para persistir os dados do container do Minio, Redis e Rabbit.
 • Criação de uma network e expor apenas as portas necessárias.
@@ -27,45 +31,38 @@ Lembre que toda solução deve esta contida no repositório , sem nenhuma ação
 
 ----
 
-Estrutura da aplicação
+# Estrutura da aplicação
 
+
+```python
+ProjetoFinalMod2/
 |-- app/
-
-|---|-- Dockerfile
-
-|---|-- app.py
-
-|---|-- requirements.txt
-
-|---|-- index.html
-
-|---|-- worker.py
-
+|   |-- Dockerfile
+|   |-- [app.py](http://app.py/)
+|   |-- requirements.txt
+|   |-- index.html
+|   |-- [worker.py](http://worker.py/)
+|   ...
 |-- nginx/
-
-|---|-- Dockerfile
-
-|---|-- nginx.conf
-
+|   |-- Dockerfile
+|   |-- nginx.conf
 |-- docker-compose.yml
+```
 
 
 
 
-
-Pull das imagens no docker HUB
+# Pull das imagens no docker HUB
 
 docker pull robertosilvafelipe/projetofinalmod2-nginx:latest
 
 docker push robertosilvafelipe/projetofinalmod2-app:latest
 
 
-Descrição do fluxo do projeto (sistema)
+# Descrição do fluxo do projeto (sistema)
 
-Descrição do fluxo:
-
+```scss
 [Usuário] --> [NGINX] --> [Aplicação Web]
-
                      |
                      |--> [MinIO] (Armazenamento de Fotos)
                      |
@@ -75,6 +72,11 @@ Descrição do fluxo:
                        [Worker] (Processa Fotos e redimensiona)
                                |
                      |--> [Redis] (Armazenamento de Metadados)
+
+```
+
+Descrição do fluxo:
+                     
 
 1. **Usuário (com notebook)**: Interage com a aplicação web para upload e visualização de fotos.
 2. **NGINX**: Atua como proxy reverso, direcionando as requisições para os serviços corretos.
