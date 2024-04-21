@@ -31,8 +31,18 @@ Lembre que toda solução deve esta contida no repositório , sem nenhuma ação
 ----
 # Descrição do funcionamento da aplicação 
 
-Aplicação de galeria de fotos onde usuários podem fazer upload de fotos, que são armazenadas no MinIO. Ao fazer o upload, a aplicação coloca uma mensagem em uma fila do RabbitMQ para processamento posterior por workers que consomem da fila. Informações sobre as fotos, como metadados e o caminho para o arquivo armazenado, são guardadas no Redis para acesso rápido. O NGINX atua como um proxy reverso, roteando solicitações para a interface da aplicação e servindo arquivos estáticos.
+O cliente deverá via interface gráfica enviar seus dados para realizar a transação. O arquivo de dados aceito deve estar no formato .json e deverá conter a seguinte estrutura:
 
+[{
+    "_id": "cliente1",
+    "isActive": true,
+    "cliente": "Cliente fulano",
+    "email": "clientefulanoo@example.com",
+    "endereco": "Cidade A, Estado A, 1000",
+    "datatrasancao": "2024-03-11T12:00:00 +00:00"
+  }]
+
+Ao enviar os dados, será enviado um evento para fila do rabbimq, criado uma chave no redis cache e também salvo os dados do cliente no minio.
 
 ----
 
@@ -83,26 +93,27 @@ docker push robertosilvafelipe/projetofinalmod2-app:latest
 Descrição do fluxo:
                      
 
-1. **Usuário (com notebook)**: Interage com a aplicação web para upload e visualização de fotos.
+1. **Usuário (com notebook)**: Interage com a aplicação web para envio dos dados da transação
 2. **NGINX**: Atua como proxy reverso, direcionando as requisições para os serviços corretos.
-3. **Aplicação Web**: Interface principal para os usuários interagirem com a galeria de fotos.
-4. **MinIO**: Serviço de armazenamento de objetos onde as fotos são armazenadas.
-5. **RabbitMQ**: Gerencia a fila de mensagens para o processamento de fotos
-6. **Worker**: Processa as fotos de acordo com as mensagens na fila do RabbitMQ.
-7. **Redis**: Armazena metadados das fotos para acesso rápido.
+3. **Aplicação Web**: Interface principal para os usuários enviarem os dados.
+4. **MinIO**: Serviço de armazenamento de objetos onde os dados dos clientes são armazenados
+5. **RabbitMQ**: Gerencia a fila de mensagens para o processamento das mensagens
+6. **Worker**: Processa as mensagens de acordo com a chegada na fila do RabbitMQ.
+7. **Redis**: Armazena dados dos clientes por 60s para
 
 
 # Execução da aplicação 
 
 Após realização do pull das imagens e build com o docker compose, abrir no navegador a url do ambiente na porta 8080.
 
-![image](https://github.com/robertosilvafelipe/projetofinalmodulo2/assets/101230256/6666b72a-c2c9-4011-bba3-c02e7f2d1560)
+![image](https://github.com/robertosilvafelipe/projetofinalmodulo2/assets/101230256/ada27c0f-bd7b-4ccb-9363-6d62b26f18d9)
 
-Realizar  o upload de uma imagem e clicar no upload.
+
+Realizar o envio das informações do cliente e clicar em "Enviar dados de Transação"
 
 Deverá ser criado uma fila no rabbimq - (Rabbitmq é aberto na porta 15672)
-A imagem deverá ser gravada no minio - (Minio é aberto na porta 9001)
-E será criado uma key no redis para salvar informações básicas da imagem - (redis é aberto na porta 8001)
+Os dados deverão ser gravados no minio - (Minio é aberto na porta 9001)
+E será criado uma key no redis para salvar informações básicas do cliente - (redis é aberto na porta 8001)
 
 
 Minio 
