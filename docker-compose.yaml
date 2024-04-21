@@ -1,6 +1,8 @@
+version: '3.8'
+
 services:
   minio:
-    image: quay.io/minio/minio
+    image: minio/minio
     volumes:
       - minio_data:/data
     ports:
@@ -28,26 +30,36 @@ services:
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
 
-  app:
-    build: 
-      context: ./app
+  fraud_detection:
+    build: ./app
     depends_on:
       - minio
       - redis
       - rabbitmq
     ports:
       - "5000:5000"
-
+    restart: on-failure
 
   nginx:
     build:
       context: ./nginx
     depends_on:
-      - app
+      - fraud_detection
     ports:
       - "8080:80"
 
+  worker:
+    build: ./app
+    depends_on:
+      - rabbitmq
+      - redis
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+      - REDIS_HOST=redis
+    command: python worker.py
+    restart: on-failure
+
 volumes:
   minio_data:
-  redis_data:
   rabbitmq_data:
+  redis_data:
