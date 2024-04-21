@@ -33,6 +33,7 @@ Lembre que toda solução deve esta contida no repositório , sem nenhuma ação
 
 O cliente deverá via interface gráfica enviar seus dados para realizar a transação. O arquivo de dados aceito deve estar no formato .json e deverá conter a seguinte estrutura:
 
+```json
 [{
     "_id": "cliente1",
     "isActive": true,
@@ -41,6 +42,7 @@ O cliente deverá via interface gráfica enviar seus dados para realizar a trans
     "endereco": "Cidade A, Estado A, 1000",
     "datatrasancao": "2024-03-11T12:00:00 +00:00"
   }]
+```
 
 Ao enviar os dados, será enviado um evento para fila do rabbimq, criado uma chave no redis cache e também salvo os dados do cliente no minio.
 
