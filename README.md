@@ -57,6 +57,8 @@ ProjetoFinalMod2/
 |   |-- requirements.txt
 |   |-- index.html
 |   |-- [worker.py]
+|   |-- Dados.json
+|   |-- Dados - Fraude1.json
 |   ...
 |-- nginx/
 |   |-- Dockerfile
