@@ -1,13 +1,73 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Upload de Arquivo</title>
 </head>
 <body>
-    <h1>Upload de Arquivo</h1>
-    <form action="http://localhost:8080/upload" method="post" enctype="multipart/form-data">
-        <input type="file" name="file" required>
-        <input type="submit" value="Upload">
-    </form>
+
+    <h2>Enviar Dados de Transação</h2>
+    <input type="file" id="fileInput" accept=".json">
+    <button onclick="sendTransactionData()">Enviar Dados de Transação</button>
+    <div id="fraudAlert" style="color: red; margin-top: 20px;"></div>
+
+    <script>
+        function sendTransactionData() {
+            const fileInput = document.getElementById('fileInput');
+            if (!fileInput.files.length) {
+                alert('Por favor, selecione um arquivo JSON para enviar.');
+                return;
+            }
+
+            const file = fileInput.files[0];
+            if (file.type !== "application/json") {
+                alert('Por favor, selecione um arquivo JSON.');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const data = event.target.result;
+                fetch('/upload-json', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: data
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    alert('Dados enviados com sucesso!');
+                    // Inicia o polling para verificar fraude
+                    const transactionId = JSON.parse(data).transactionId; // Supondo que o servidor responde com o ID da transação
+                    checkForFraudAlert(transactionId);
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    alert('Erro ao enviar dados.');
+                });
+            };
+            reader.readAsText(file);
+        }
+
+        function checkForFraudAlert(transactionId) {
+            // Este endpoint '/check-fraud' deve ser implementado no servidor para responder se há fraude
+            fetch(`/check-fraud?transactionId=${transactionId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.isFraud) {
+                        document.getElementById('fraudAlert').innerText = 'Suspeita de fraude detectada!';
+                    } else {
+                        // Reagenda a próxima verificação se não for encontrada fraude
+                        setTimeout(() => checkForFraudAlert(transactionId), 5000); // Verifica novamente após 5 segundos
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    document.getElementById('fraudAlert').innerText = 'Erro ao verificar fraude.';
+                });
+        }
+    </script>
 </body>
 </html>
