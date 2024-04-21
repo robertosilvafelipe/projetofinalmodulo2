@@ -122,14 +122,15 @@ E será criado uma key no redis para salvar informações básicas do cliente - 
 
 Minio 
 
-![image](https://github.com/robertosilvafelipe/projetofinalmodulo2/assets/101230256/76f783c2-fc81-4b44-bbae-bac6825674a6)
+![image](https://github.com/robertosilvafelipe/projetofinalmodulo2/assets/101230256/9a58be63-4702-4d06-b106-9462cb69dedc)
+
 
 
 Rabbit MQ 
 
-![image](https://github.com/robertosilvafelipe/projetofinalmodulo2/assets/101230256/d8cffaac-5338-42ed-85c9-10aa16d09364)
+![image](https://github.com/robertosilvafelipe/projetofinalmodulo2/assets/101230256/65e130e4-1218-48d0-a401-f2958bbab35a)
 
 
 Redis 
 
-![image](https://github.com/robertosilvafelipe/projetofinalmodulo2/assets/101230256/94f5dcc3-7fd1-42d0-9f83-90f23d3b557e)
+![image](https://github.com/robertosilvafelipe/projetofinalmodulo2/assets/101230256/b88d13f2-6a54-4700-898b-66408f46ab62)
